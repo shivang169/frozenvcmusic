@@ -66,7 +66,7 @@
    ```
 5. **Clone the Repository**
    ```bash
-   git clone https://github.com/prashantsahlot/frozenvcmusic && cd BrandrdXMusic
+   git clone https://github.com/prashantsahlot/frozenvcmusic && cd frozenvcmusic
    ```
 6. **Install Requirements**
    ```bash
