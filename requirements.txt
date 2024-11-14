@@ -40,3 +40,5 @@ https://github.com/KurimuzonAkuma/pyrogram/archive/v2.1.23.zip
 git+https://github.com/AsmSafone/SafoneAPI
 bing_image_downloader
 flask
+flask_restful
+
