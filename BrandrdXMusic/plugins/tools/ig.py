@@ -1,8 +1,6 @@
 import requests
 from pyrogram import filters
-
 from BrandrdXMusic import app
-
 
 @app.on_message(filters.command(["ig", "instagram", "reel"]))
 async def download_instagram_video(client, message):
@@ -11,22 +9,37 @@ async def download_instagram_video(client, message):
             "Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴛʜᴇ Iɴsᴛᴀɢʀᴀᴍ ʀᴇᴇʟ URL ᴀғᴛᴇʀ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅ"
         )
         return
-    a = await message.reply_text("ᴘʀᴏᴄᴇssɪɴɢ...")
+    processing_message = await message.reply_text("ᴘʀᴏᴄᴇssɪɴɢ...")
     url = message.text.split()[1]
-    api_url = (
-        f"https://nodejs-1xn1lcfy3-jobians.vercel.app/v2/downloader/instagram?url={url}"
-    )
+    api_url = f"https://tele-social.vercel.app/down?url={url}"
 
-    response = requests.get(api_url)
-    data = response.json()
+    try:
+        # Request to the API
+        response = requests.get(api_url)
+        data = response.json()
 
-    if data["status"]:
-        video_url = data["data"][0]["url"]
-        await a.delete()
-        await client.send_video(message.chat.id, video_url)
-    else:
-        await a.edit("Fᴀɪʟᴇᴅ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ʀᴇᴇʟ")
+        if data["status"] and "video" in data["data"]:
+            video_url = data["data"]["video"]
+            
+            # Download the video
+            video_content = requests.get(video_url).content
 
+            # Save the video temporarily
+            temp_file_path = "/tmp/instagram_reel.mp4"
+            with open(temp_file_path, "wb") as video_file:
+                video_file.write(video_content)
+
+            # Send the video to the user
+            await processing_message.delete()
+            await client.send_video(
+                message.chat.id,
+                video=temp_file_path,
+                caption="Hᴇʀᴇ ɪs ᴛʜᴇ ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ ᴠɪᴅᴇᴏ!"
+            )
+        else:
+            await processing_message.edit("Fᴀɪʟᴇᴅ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ʀᴇᴇʟ.")
+    except Exception as e:
+        await processing_message.edit(f"An ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ:\n`{e}`")
 
 __MODULE__ = "Iɴsᴛᴀɢʀᴀᴍ"
 __HELP__ = """/reel [ɪɴsᴛᴀɢʀᴀᴍ ʀᴇᴇʟ ᴜʀʟ] - Tᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴛʜᴇ ʀᴇᴇʟ ʙʏ ʙᴏᴛ
