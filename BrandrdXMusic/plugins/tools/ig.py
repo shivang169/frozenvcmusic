@@ -2,11 +2,11 @@ import requests
 from pyrogram import filters
 from BrandrdXMusic import app
 
-@app.on_message(filters.command(["ig", "instagram", "reel"]))
+@app.on_message(filters.command(["ig", "instagram", "down"]))
 async def download_instagram_video(client, message):
     if len(message.command) < 2:
         await message.reply_text(
-            "Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴛʜᴇ Iɴsᴛᴀɢʀᴀᴍ ʀᴇᴇʟ URL ᴀғᴛᴇʀ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅ"
+            "Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ URL ᴀғᴛᴇʀ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅ"
         )
         return
     processing_message = await message.reply_text("ᴘʀᴏᴄᴇssɪɴɢ...")
@@ -42,7 +42,7 @@ async def download_instagram_video(client, message):
         await processing_message.edit(f"An ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ:\n`{e}`")
 
 __MODULE__ = "Iɴsᴛᴀɢʀᴀᴍ"
-__HELP__ = """/reel [ɪɴsᴛᴀɢʀᴀᴍ ʀᴇᴇʟ ᴜʀʟ] - Tᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴛʜᴇ ʀᴇᴇʟ ʙʏ ʙᴏᴛ
+__HELP__ = """/down [ᴜʀʟ] - Tᴏ ᴅᴏᴡɴʟᴏᴀᴅ ʙʏ ʙᴏᴛ
 /ig [ɪɴsᴛᴀɢʀᴀᴍ ʀᴇᴇʟ ᴜʀʟ] - Tᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴛʜᴇ ʀᴇᴇʟ ʙʏ ʙᴏᴛ
 /instagram [ɪɴsᴛᴀɢʀᴀᴍ ʀᴇᴇʟ ᴜʀʟ] - Tᴏ ᴅᴏᴡɴʟᴏᴀᴅ ᴛʜᴇ ʀᴇᴇʟ ʙʏ ʙᴏᴛ
 """
